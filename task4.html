@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>n: </label>
+    <input name="v" type="text" id="v">
+    <p id="trig"></p>
+    <script>
+        let target = document.getElementById('trig');
+        let input_v = document.getElementById('v');
+        let fill = (n) => {
+            let arr = Array.from(Array(n).keys());
+            arr.forEach((el) => {
+                let p = document.createElement("p");
+                p.innerHTML = String(el + 1);
+                target.appendChild(p);
+            })
+        }
+        input_v.addEventListener('change', (event) => {fill(Number(event.target.value))})
+    </script>
+</body>
+</html>

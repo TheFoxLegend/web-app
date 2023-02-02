@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        
+        .preview{
+            border: 1px solid black;
+            padding: 10px 10px 0px 10px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+
+        let movie_list = [{
+                "id": 11,
+                "title": "Café Society",
+                "year": 2016,
+                "director": "Woody Allen",
+                "poster": "https://m.media-amazon.com/images/M/MV5BYzkzMzdjMTQtZGI3OS00NTI4LWI3YzktYmZlNmUxMjgwN2U5XkEyXkFqcGdeQXVyNDQzMDg4Nzk@._V1_.jpg",
+                "rating": 7.0
+            },{
+                "id": 10,
+                "title": "The Wolf of Wall Street",
+                "year": 2013,
+                "director": "Martin Scorsese",
+                "poster": "https://m.media-amazon.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_.jpg",
+                "rating": 6.9
+            },{
+                "id": 5,
+                "title": "Midnight in Paris",
+                "year": 2011,
+                "director": "Woody Allen",
+                "poster": "https://m.media-amazon.com/images/M/MV5BMTM4NjY1MDQwMl5BMl5BanBnXkFtZTcwNTI3Njg3NA@@._V1_.jpg",
+                "rating": 6.8
+            },{
+                "id": 13,
+                "title": "Sherlock Holmes: A Game of Shadows",
+                "year": 2011,
+                "director": "Guy Ritchie",
+                "poster": "https://m.media-amazon.com/images/M/MV5BMTQwMzQ5Njk1MF5BMl5BanBnXkFtZTcwNjIxNzIxNw@@._V1_.jpg",
+                "rating": 6.0
+            },
+        ]
+
+        let container = document.getElementById('container');
+
+        for(let movie of movie_list){
+            let div = document.createElement('div');
+            let header = document.createElement('h1');
+            header.innerHTML = movie.title;
+            div.appendChild(header);
+            let img = document.createElement('img');
+            img.src = movie.poster;
+            img.style.width = '150px';
+            div.appendChild(img);
+            let txt = document.createElement('p');
+            txt.innerHTML = `year: ${movie.year} <br>rating: ${movie.rating} <br>by ${movie.director}`;
+            div.appendChild(txt);
+            container.append(div);
+        }
+        
+
+    </script>
+</body>
+</html>

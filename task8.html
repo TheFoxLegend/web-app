@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        #app div {
+            border: 2px solid black;
+            border-radius: 5px;
+            width: 250px;
+            margin: 15px;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+        }
+        #app button {
+            border-radius: 10px;
+            margin: 10px;
+            padding: 15px;
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "app">
+        <movie-component 
+        v-for="(item, id) in movies" 
+        v-bind:movie="item" 
+        v-bind:key="id"
+        v-bind:handler="() => showYear(id)"/>
+    </div>
+
+    <script>
+        Vue.component('movie-component', {
+            props: ['movie', 'handler'],
+            template: `<div>
+                <h1> {{ movie.title }} </h1>
+                <img :src="movie.img" width="120" />
+                <br/>
+                <h2> {{ movie.rating }} </h2>
+                <button v-on:click="handler"> Show year </button>
+            </div>`,
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                movies: [{ 
+                        id: 1, title: 'Terminator', year: 1984, rating: 8.1,
+                        img: 'https://upload.wikimedia.org/wikipedia/ru/thumb/c/ca/Terminator_poster.jpg/204px-Terminator_poster.jpg'
+                    },{ 
+                        id: 2, title: 'Terminator 2', year: 1991, rating: 8.2,
+                        img: 'https://upload.wikimedia.org/wikipedia/ru/thumb/8/85/Terminator2poster.jpg/201px-Terminator2poster.jpg'
+                    },{ 
+                        id: 3, title: 'Terminator 3', year: 2003, rating: 6.1,
+                        img: 'https://upload.wikimedia.org/wikipedia/ru/thumb/7/73/Terminator_3_Rise_of_the_Machines.jpg/250px-Terminator_3_Rise_of_the_Machines.jpg' 
+                    },
+                ],
+            },
+            methods: {
+                showYear: function(id) {
+                    alert(`year: ${this.movies[id].year}`);
+                },
+            },
+        });
+    </script>
+</body>
+</html>

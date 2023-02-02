@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class Match extends React.Component {
+            render() {
+                const matchStyleObj = {
+                    margin: 10,
+                    padding: 5,
+                    width: 40,
+                    display: "inline-block",
+                    textAlign: "center",
+                }
+                const imgStyleObj = {width: 40,}
+                return (
+                    <div style = { matchStyleObj }>
+                        <img src="https://st.depositphotos.com/2524151/2837/i/950/depositphotos_28370249-stock-photo-match-isolated-on-white.jpg" style={ imgStyleObj }/>
+                        <p><b>{ this.props.id + 1 }</b></p>
+                    </div>
+                );
+            };
+        }
+        
+        class MatchesGame extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    firstPlayerTurn: true,
+                    secondPlayerTurn: false,
+                    thirdPlayerTurn: false,
+                    matches: new Array(20).fill(0),
+                };
+            };
+            getGameHeader = () => {
+                if (this.state.matches.length === 0) {
+                    if(this.state.firstPlayerTurn)
+                        return "First player lost";
+                    if(this.state.secondPlayerTurn)
+                        return "Second player lost";
+                    return "Third player lost";
+                }
+                if(this.state.firstPlayerTurn) return "First player turn";
+                if(this.state.secondPlayerTurn) return "Second player turn";
+                return "Third player turn";
+            };
+            takeMatches = (amount) => {
+                if (this.state.matches.length < amount)                    
+                    return alert(`Can't take ${amount} matches!`);
+                this.setState({
+                    matches: this.state.matches.slice(0, this.state.matches.length - amount)
+                });
+                if(this.state.firstPlayerTurn){
+                    this.state.firstPlayerTurn = !this.state.firstPlayerTurn;
+                    this.state.secondPlayerTurn = !this.state.secondPlayerTurn;
+                }
+                else if(this.state.secondPlayerTurn){
+                    this.state.secondPlayerTurn = !this.state.secondPlayerTurn;
+                    this.state.thirdPlayerTurn = !this.state.thirdPlayerTurn;
+                }
+                else if(this.state.thirdPlayerTurn){
+                    this.state.thirdPlayerTurn = !this.state.thirdPlayerTurn;
+                    this.state.firstPlayerTurn = !this.state.firstPlayerTurn;
+                }
+            };
+            render() {
+                const headerStyleObj = {
+                    fontSize: 28,
+                    textAlign: "center",
+                };
+                const buttonStyleObj = {
+                    margin: 20,
+                    padding: 15,
+                    width: 150,
+                    fontSize: 28,
+                    display: "inline-block",
+                    textAlign: "center",
+                };
+                return (
+                    <div>
+                        <h2 style={ headerStyleObj }>{ this.getGameHeader() }</h2>
+                            {this.state.matches.map((match, id) => <Match key={id} id={id}/>) }
+                        <br/>
+                        <button style={ buttonStyleObj } onClick={ () => this.takeMatches(1) }> Take 1</button>
+                        <button style={ buttonStyleObj } onClick={ () => this.takeMatches(2) }> Take 2</button>
+                        <button style={ buttonStyleObj } onClick={ () => this.takeMatches(3) }> Take 3</button>
+                    </div>
+                );
+            };
+        }
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<MatchesGame />);
+    </script>
+  </body>
+</html>

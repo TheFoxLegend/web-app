@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>Координати паралелограму(ділитель ;): </label>
+    <input name="v1" type="text" id="v1">
+    <input name="v2" type="text" id="v2">
+    <input name="v3" type="text" id="v3">
+    <input name="v4" type="text" id="v4">
+    <button id="btn-1">Знайти площу</button>
+    <p id="trig"></p>
+    <script>
+        class par{
+            constructor(...coordinates){
+                if(coordinates.length != 4)
+                    target.innerHTML = "Потрібно 4 координати";
+                else if(coordinates[0][0] - coordinates[2][0] != coordinates[1][0] - coordinates[3][0] || 
+                        coordinates[0][1] != coordinates[1][1] || coordinates[2][1] != coordinates[3][1])
+                    target.innerHTML = "Неможливо створити паралелограм";
+                else this.coordinates = coordinates;
+            }
+            get_size_of(){
+                let h = this.coordinates[0][1] - this.coordinates[3][1];
+                let m = this.coordinates[0][0] - this.coordinates[1][0];
+                target.innerHTML = "Площа: " + (m*h);
+            }
+        }
+        let target = document.getElementById('trig');
+        let btn1 = document.getElementById('btn-1');
+        let create = () => {
+            let v1 = document.getElementById('v1').value;
+            let v2 = document.getElementById('v2').value;
+            let v3 = document.getElementById('v3').value;
+            let v4 = document.getElementById('v4').value;
+            let c1 = String(v1).split(';');
+            let c2 = String(v2).split(';');
+            let c3 = String(v3).split(';');
+            let c4 = String(v4).split(';');
+            par1 = new par(c1, c2, c3, c4);
+            par1.get_size_of();
+        }
+        btn1.onclick = create;
+    </script>
+</body>
+</html>

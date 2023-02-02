@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="result"></h1>
+    <label>Градусов цельсия: </label>
+    <input name="c" type="text" id="c">
+    <label>Градусов фаренгейта: </label>
+    <input name="f" type="text" id="f">
+    <button id="btn-1">Перевести</button>
+    <script>
+        var result = document.getElementById('result');
+        var btn1 = document.getElementById('btn-1');
+        var func = () => {
+            var c = document.getElementById('c').value;
+            var f = document.getElementById('f').value;
+            if(c != null){
+                f = c * 9 / 5 + 32;
+                result.innerHTML = "По фаренгейту: " + f;
+            }else if(f != null){
+                c = (f - 32) * 5 / 9;
+                result.innerHTML = "По цельсию: " + c;
+            }else{
+                result.innerHTML = 'Оба поля пустые, введите в одно из них число';
+            }
+        }
+        btn1.onclick = func;
+    </script>
+</body>
+</html>

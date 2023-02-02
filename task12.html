@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Counter extends React.Component {
+            render() {
+                const btnStyleObj = {
+                    margin: 10,
+                    padding: 5,
+                    width: 40,
+                };
+
+                return (
+                    <div style={{
+                        width: 120,
+                        padding: 20,
+                        margin: 20,
+                        border: '1px solid blue',
+                        borderRadius: 10,
+                        textAlign: 'center',
+                        display: 'inline-block',
+                    }}>
+                        <h1>{ this.props.counter }</h1>
+                        <button style={ btnStyleObj } onClick={ () => this.props.handlerDecrement() }>-1</button>
+                        <button style={ btnStyleObj } onClick={ () => this.props.handlerIncrement() }>+1</button>
+                    </div>
+                );
+            };
+        }
+
+        class MyApp extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    counters: new Array(12).fill(0),
+                };
+            };
+
+            getCounterComponents = () => {
+                return this.state.counters.map(
+                    (counter, id) => 
+                        <Counter 
+                            counter={counter} 
+                            key={id} 
+                            handlerIncrement = { () => this.incrementCounterByOne(id) }
+                            handlerDecrement = { () => this.decrementCounterByOne(id) }
+                            />
+                );
+            };
+
+            incrementCounterByOne = (id) => {
+                let copiedCounters = this.state.counters.slice();
+                ++copiedCounters[id];
+                this.setState({
+                    counters: copiedCounters,
+                });
+            };
+
+            decrementCounterByOne = (id) => {
+                let copiedCounters = this.state.counters.slice();
+                copiedCounters[id] = copiedCounters[id] > 0 ? --copiedCounters[id]: copiedCounters[id];
+                this.setState({
+                    counters: copiedCounters,
+                });
+            };
+
+            render() {
+                return (
+                    <div>
+                        <h1 style={{textAlign: 'center', color: 'blue',}}>Total: { this.state.counters.reduce((a, b) => a + b, 0) }</h1>
+                        { this.getCounterComponents() }
+                    </div>
+                );
+            };
+        }
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<MyApp />);
+    </script>
+  </body>
+</html>
